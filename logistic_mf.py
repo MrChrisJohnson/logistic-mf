@@ -96,13 +96,11 @@ class LogisticMF():
             bias_deriv -= np.expand_dims(np.sum(A, axis=1), 1)
             # L2 regularization
             vec_deriv -= self.reg_param * self.user_vectors
-            #bias_deriv -= self.reg_param * self.user_biases
         else:
             vec_deriv -= np.dot(A.T, self.user_vectors)
             bias_deriv -= np.expand_dims(np.sum(A, axis=0), 1)
             # L2 regularization
             vec_deriv -= self.reg_param * self.item_vectors
-            #bias_deriv -= self.reg_param * self.item_biases
         return (vec_deriv, bias_deriv)
 
     def log_likelihood(self):
@@ -123,8 +121,6 @@ class LogisticMF():
         # L2 regularization
         loglik -= 0.5 * self.reg_param * np.sum(np.square(self.user_vectors))
         loglik -= 0.5 * self.reg_param * np.sum(np.square(self.item_vectors))
-        loglik -= 0.5 * self.reg_param * np.sum(np.square(self.user_biases))
-        loglik -= 0.5 * self.reg_param * np.sum(np.square(self.item_biases))
         return loglik
 
     def print_vectors(self):
